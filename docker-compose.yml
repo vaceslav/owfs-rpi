@@ -1,0 +1,15 @@
+version: '2'
+services:
+  owfs:
+    image: hortio/hortio-owfs-rpi
+    ports: 
+      - "4304:4304"
+    build: .
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+    volumes: 
+      - "/lib/modules:/lib/modules"
+    restart: always  
+    privileged: true
+    cap_add:
+      - ALL
