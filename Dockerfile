@@ -1,5 +1,5 @@
-FROM resin/rpi-raspbian:latest
-LABEL maintainer="Sergei Silnov <po@kumekay.com>"
+FROM balenalib/raspberrypi3-ubuntu-python:latest
+LABEL maintainer="Vaceslav Ustinov <slava@xeqo.de>"
 
 RUN apt-get update && \
     apt-get install -y \
