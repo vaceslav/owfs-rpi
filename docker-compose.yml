@@ -4,9 +4,34 @@ services:
     build: .
     ports: 
       - "4304:4304"
-    build: .
+      - "2121:2121"
+    privileged: true
 #    devices:
 #      - "/dev/i2c-1:/dev/i2c-1"
-#    volumes: 
+    volumes: 
+      - "/dev/bus/usb:/dev/bus/usb"
+      - "./1wire:/mnt/1wire"
 #      - "/lib/modules:/lib/modules"
     restart: unless-stopped
+  onewire-agent:
+    image: bkjeholt/mqtt-agent-onewire:2.0-rpi
+    environment:
+      - MQTT_IP_ADDR=mosquitto
+      - MQTT_PORT_NO=1883
+      - OWSERVER_IP_ADDR=owfs
+      - OWSERVER_PORT_NO=4304
+    restart: unless-stopped
+    depends_on:
+      - owfs
+      - mosquitto
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+  #  network_mode: "host"
+    volumes:
+      - ./mosquittoconfig:/mosquitto/config
