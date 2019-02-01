@@ -1,0 +1,13 @@
+! server: server = localhost:4304
+# USB device: DS9490
+#server: usb = all
+server: FAKE = DS18S20,DS2405,DS18B20,DS18B20,DS18B20
+######################### OWFS ##########################
+#mountpoint = /mnt/1wire
+#allow_other
+####################### OWHTTPD #########################
+http: port = 2121
+####################### OWFTPD ##########################
+#ftp: port = 2120
+####################### OWSERVER ########################
+server: port = *:4304
